@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{current_user['name']}} Account</title>
+    <style>
+           body {
+                  background: #1c2333;
+                  display: flex;
+                  flex-direction: column;
+                  height: 100vh;
+                  width: 100vw;
+                  overflow: hidden;
+                  height: 100vh;
+                }
+           * {
+                  font-family: Avenir Next;
+                  color: #eee;
+                  box-sizing: border-box;
+                }
+             .cardsContainer {
+                  display: flex;
+                  flex-wrap: wrap;
+                }
+               .card {
+                  height: 9rem;
+                  width: 44%;
+                  text-align: center;
+                  padding: 0.2rem;
+                  border-radius: 1rem;
+                  background: #0E1525;
+                  border-radius: 10px;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-evenly;
+                }
+                .card > :nth-child(1) {
+                  font-size: 3rem;
+                  text-shadow: rgba(255,255,255,1) 0px 0px 13px;
+                }
+                  .card > :nth-child(2) {
+                  font-size: 1.6rem;
+                  font-weight: 900;
+                }
+
+                .card > :nth-child(3) {
+                  font-size: .8rem;
+                }
+
+                .card:hover {
+                  cursor:pointer;
+                }
+
+                .wrapper {
+                  height: 100vh;
+                  width: 100vw;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  overflow: scroll;
+                  padding-bottom: 10rem;
+                }
+                  .header {
+                  width: 48rem;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-bottom: 2rem;
+                }
+
+                .header > div {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 50%;
+                  flex-wrap: wrap;
+                  gap: 1rem;
+                }
+                .buttonsContainer {
+                  display: flex;
+                  width: 100%;
+                  justify-content: center;
+                  align-items: center;
+                }
+
+                form button {
+                  margin-left: 1rem;
+                  padding: 0.5rem 1rem;
+                  border-radius: 0.8rem;
+                  cursor: pointer;
+
+                  color: #eee;
+                  border: none;
+                  outline: none;
+                  font-weight: bolder;
+                  font-size: 1.4rem;
+                  background: rgba( 144, 0, 238, 0.3 );
+                  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+                  backdrop-filter: blur( 2.5px );
+                  -webkit-backdrop-filter: blur( 2.5px );
+                  border-radius: 10px;
+                  border: 1px solid rgba( 255, 255, 255, 0.18 );
+                }
+                  .login-title {
+                  font-size: 4rem;
+                  margin-bottom: 5rem;
+                }
+
+                .login-form {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  gap: 2.4rem;
+                }
+
+                .login-form button {
+                  color: #eee;
+                  background-color: #9000ee;
+                  border: none;
+                  border-radius: 1rem;
+                  padding: 1rem 2rem;
+                  font-size: 1.4rem;
+                  font-weight: 600;
+                  background: rgba( 144, 0, 238, 0.3 );
+                  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+                  backdrop-filter: blur( 2.5px );
+                  -webkit-backdrop-filter: blur( 2.5px );
+                  border-radius: 10px;
+                  border: 1px solid rgba( 255, 255, 255, 0.18 );
+                }
+
+                .login-form > input {
+                  color: #1c2333;
+                  background-color: #eee;
+                  outline: none;
+                  border: none;
+                  padding: 1rem;
+                  border-radius: 1rem;
+                  font-size: 1.2rem;
+                  width: 20rem;
+                }
+
+                .login-form button:hover {
+                  transform: scale(1.06);
+                  transition: all 0.3s ease-in-out;
+                  cursor: pointer;
+                  border: 1px solid white;
+                }
+
+                .leaderboard {
+                  height: 32rem;
+                  width: 46rem;
+                  border-radius: 1rem;
+                  background-color:#0E1525;
+                  backdrop-filter: blur( 2.5px );
+                  -webkit-backdrop-filter: blur( 2.5px );
+                  border-radius: 10px;
+                  overflow: hidden;
+                  margin-top:15px;
+                }
+
+                img{
+                  object-fit: cover;
+                }
+
+                .login-title {
+                  width: 100vw;
+                  text-align: center;
+                }
+
+                td {
+                  padding: 1rem;
+                }
+
+                .titles {
+                  font-weight: 700;
+                }
+
+                form > button:hover {
+                  transform: scale(1.06);
+                  transition: all 0.3s ease-in-out;
+                  cursor: pointer;
+                  border: 1px solid #4e5569;
+                }
+
+                #dog:hover {
+                  transform: rotate(360deg);
+                  transition: all 3s ease;
+                }
+
+
+
+    </style>
+</head>
+
+        <body>
+             {% from 'components.html' import card with context %}
+            <link rel="stylesheet" href="./static/styles.css"/>
+             <div class='wrapper'>
+                <div class='header'>
+                    {%for user in users%}
+                    {%if user['name'] == current_user['name']%}
+                  <div>
+                    {{ card(emoji='🐶', data=user['total_dogs'], title='Total Dogs')}}
+                    {{ card(emoji='💁', data=user['name'], title='Username')}}
+                    {{ card(emoji='🔑', data=user['num_of_login'], title='# of Logins')}}
+                    {{ card(emoji='🐕', data=user['dogs_generated'], title='Dogs You Generated')}}
+                  </div>
+                    {%endif%}
+                     {%endfor%}
+                    {%if dog_img%}
+                     <div  id='dog'>
+                      <img src='{{dog_img}}' width='200' height='200' style="border-radius: 10%;">
+                    </div>
+                    {%endif%}
+                </div>
+
+
+             <div class='buttonsContainer'>
+                  <form action="/get_dog" method='GET'>
+                    <button>Get Random Dog</button>
+                  </form>
+
+                <form action='/logout' method="POST">
+                  <button>Logout</button>
+                </form>
+             </div>
+
+
+                  <table class = "leaderboard">
+                    <th>
+                      <div class='titles'>
+                        <tr>
+                          <td>Place</td>
+                          <td>Name</td>
+                          <td>Dogs Generated 🌟</td>
+                          <td>Logins</td>
+                        </tr>
+                        </div>
+                    </th>
+                  <tr>
+                      {% for user in users%}
+                        <!-- Insert the index. Add a trophy if the index is 1 -->
+                        {%if loop.index == 1%}
+                        <td>🏆{{loop.index}}</td>
+                        {%else%}
+                        <td>{{loop.index}}</td>
+                        {%endif%}
+
+                        <!-- Insert Username -->
+                        <td>{{user['name']}}</td>
+                        <!-- Insert Number of Dogs Generated -->
+                        <td>{{user['dogs_generated']}}</td>
+                        <!-- Insert Number of Logins -->
+                        <td>{{user['num_of_login']}}</td>
+                      </tr>
+                      {%endfor%}
+
+
+                </table>
+             </div>
+        </body>
+
+
+</html>

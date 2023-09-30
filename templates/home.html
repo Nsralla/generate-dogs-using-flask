@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Dog Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .dog-container {
+            text-align: center;
+        }
+
+        .dog-image {
+            max-width: 50%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            object-fit:cover;
+        }
+
+        .change-dog-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .change-dog-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="dog-container">
+        {% if dog_img %}
+        <form method="post" action = "/changeDog">
+            <img class="dog-image" src="{{ dog_img }}" alt="Random Dog Image">
+            <button class="change-dog-button" name="change_dog_button">Change Dog</button>
+        </form>
+        {%endif%}
+    </div>
+</body>
+</html>
